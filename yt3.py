@@ -15,7 +15,7 @@ class CloneThread(QThread):
         QThread.__init__(self)
         self.yt_url = ""
 
-    # run method gets called when we start the thread
+   
     def run(self):
         frm = "18"
         url = pytube.YouTube(self.yt_url)
@@ -30,22 +30,21 @@ class ExampleApp(QtWidgets.QMainWindow, Ui_MainWindow):
         super(ExampleApp, self).__init__(parent)
         self.setupUi(self)
         self.pushButton.setText("Download")
-        # Here we are telling to call download method when
-        # someone clicks on the pushButton.
+       
         self.pushButton.clicked.connect(self.download)
-        self.yt_thread = CloneThread()  # This is the thread object
-        # Connect the signal from the thread to the finished method
+        self.yt_thread = CloneThread()
+        
         self.yt_thread.signal.connect(self.finished)
 
     def download(self):
-        self.yt_thread.yt_url = self.lineEdit.text()  # Get the git URL
-        self.pushButton.setEnabled(False)  # Disables the pushButton
-        self.textEdit.setText("Starting Download.")  # Updates the UI
-        self.yt_thread.start()  # Finally starts the thread
+        self.yt_thread.yt_url = self.lineEdit.text()  
+        self.pushButton.setEnabled(False)  
+        self.textEdit.setText("Starting Download.") 
+        self.yt_thread.start()  
 
     def finished(self, result):
-        self.textEdit.setText("Downloaded at {0}".format(result))  # Show the output to the user
-        self.pushButton.setEnabled(True)  # Enable the pushButton
+        self.textEdit.setText("Downloaded at {0}".format(result)) 
+        self.pushButton.setEnabled(True)  
 
 
 def main():
